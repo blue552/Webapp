@@ -1,0 +1,49 @@
+# Laravel .gitignore
+
+# Ignore system files
+Downloads/
+Music/
+OneDrive*/
+node_modules/
+AndroidStudioProjects/
+package.json
+package-lock.json
+
+# Ignore executable files
+*.exe
+*.msi
+*.zip
+*.rar
+*.7z
+
+# Ignore temporary files
+*.tmp
+*.log
+*.cache
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore Laravel specific
+/vendor/
+/storage/logs/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/views/
+/bootstrap/cache/
+.env
+.env.local
+.env.production
+.env.staging
+
+# Ignore test files
+/tests/
+phpunit.xml
