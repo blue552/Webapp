@@ -10,4 +10,7 @@ class UserController extends Controller
         $user = User::find($id);
         return view('user',['user'=>$user]);
     }
+    function index(){
+        return view('user');
+    }
 }

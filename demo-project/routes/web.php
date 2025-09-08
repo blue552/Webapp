@@ -10,5 +10,12 @@ Route::get('unauth',function(){
     return view('unauth');
 });
 Route::get('/user/{id}',[UserController::class, 'getUser']);
+Route::get('/user',[UserController::class,'index']);
 Route::get('/course',[CourseController::class, 'index']);
 Route::get('/course/{id}',[CourseController::class, 'findCourse'])->middleware('checkHeaders');
+Route::get('/home',function(){
+    return view('layouts.home');
+});
+Route::get('/profile',function(){
+    return view('layouts.profile');
+});
