@@ -31,6 +31,20 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Xóa sản phẩm thành công!');
     }
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('products.show',compact('product'));
+        // return view('products.show',['product'->$product]);
+        
+    }
+    public function edit($id){
+
+    }
+    public function update(Request $request,$id)
+    {
+
+    }
 }
 
 
