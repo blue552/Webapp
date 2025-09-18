@@ -22,7 +22,6 @@
             <tr>
                 <th>ID</th>
                 <th>Tên</th>
-                <th>Số lượng</th>
                 <th>Giá</th>
                 <th>Mô tả</th>
                 <th>Ảnh</th>
@@ -34,7 +33,6 @@
                 <tr>
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->stock }}</td>
                     <td>{{ number_format($product->price, 0, ',', '.') }} VND</td>
                     <td>{{ $product->description }}</td>
                     <td>

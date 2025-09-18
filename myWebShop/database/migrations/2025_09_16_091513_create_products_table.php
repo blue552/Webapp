@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Schema;
                 $table->id();
                 $table->string('name'); 
                 $table->text('description')->nullable(); 
+                $table->integer('stock');
                 $table->decimal('price', 10, 2); 
                 $table->string('image')->nullable();
                 $table->timestamps();
