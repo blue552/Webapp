@@ -47,3 +47,7 @@ desktop.ini
 # Ignore test files
 /tests/
 phpunit.xml
+
+# ignore old folders
+/demo-project/
+/auth-example/
