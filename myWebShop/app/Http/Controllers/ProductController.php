@@ -21,9 +21,27 @@ class ProductController extends Controller
     }
     public function store(Request $request)
     {
-        Product::create($request->all());
-        return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công!');
+        // Validate request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
 
+        $data = $request->only(['name', 'description', 'price', 'stock']);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs('public/products', $imageName);
+            $data['image'] = 'products/' . $imageName;
+        }
+
+        Product::create($data);
+        return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công!');
     }
     public function destroy($id)
     {

@@ -1,0 +1,475 @@
+/* Unified Wishlist & Cart Button Styles */
+
+/* Common Button Styles */
+.btn-unified {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-unified:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%);
+}
+
+.btn-unified:hover:before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Wishlist Button Styles */
+.btn-wishlist-unified {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: #fff;
+    border: 2px solid transparent;
+    min-width: 45px;
+    min-height: 45px;
+    font-size: 16px;
+}
+
+.btn-wishlist-unified:hover {
+    background: linear-gradient(135deg, #c82333, #dc3545);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    color: #fff;
+}
+
+.btn-wishlist-unified.active {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    animation: heartbeat 0.6s ease-in-out;
+}
+
+.btn-wishlist-unified.active:hover {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+}
+
+/* Cart Button Styles */
+.btn-cart-unified {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: #fff;
+    border: 2px solid transparent;
+    min-width: 45px;
+    min-height: 45px;
+    font-size: 16px;
+}
+
+.btn-cart-unified:hover {
+    background: linear-gradient(135deg, #20c997, #28a745);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+    color: #fff;
+}
+
+.btn-cart-unified.loading {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    cursor: not-allowed;
+    animation: pulse 1.5s infinite;
+}
+
+/* View Button Styles */
+.btn-view-unified {
+    background: linear-gradient(135deg, #d4af37, #b8941f);
+    color: #fff;
+    border: 2px solid transparent;
+    min-width: 45px;
+    min-height: 45px;
+    font-size: 16px;
+}
+
+.btn-view-unified:hover {
+    background: linear-gradient(135deg, #b8941f, #d4af37);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    color: #fff;
+}
+
+/* Login Button Styles */
+.btn-login-unified {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #fff;
+    border: 2px solid transparent;
+    min-width: 45px;
+    min-height: 45px;
+    font-size: 16px;
+}
+
+.btn-login-unified:hover {
+    background: linear-gradient(135deg, #0056b3, #007bff);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+    color: #fff;
+}
+
+/* Button Sizes */
+.btn-sm {
+    min-width: 35px;
+    min-height: 35px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.btn-lg {
+    min-width: 55px;
+    min-height: 55px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+/* Button with Text */
+.btn-with-text {
+    padding: 12px 20px;
+    gap: 8px;
+    border-radius: 25px;
+    min-width: auto;
+    min-height: auto;
+}
+
+.btn-with-text .btn-text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Round Buttons */
+.btn-round {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    min-height: 45px;
+}
+
+.btn-round.btn-sm {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+    min-height: 35px;
+}
+
+.btn-round.btn-lg {
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
+    min-height: 55px;
+}
+
+/* Notification Styles */
+.unified-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    animation: slideInNotification 0.3s ease;
+}
+
+.unified-notification.success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: #fff;
+}
+
+.unified-notification.error {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: #fff;
+}
+
+.unified-notification.warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #212529;
+}
+
+.unified-notification.info {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: #fff;
+}
+
+/* Badge Styles for Count */
+.unified-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    animation: bounce 1s ease infinite;
+}
+
+.unified-badge.cart-badge {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.unified-badge.wishlist-badge {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+}
+
+/* Loading States */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading:after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+/* Hover Effects for Groups */
+.button-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.button-group .btn-unified:hover {
+    z-index: 1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .btn-unified {
+        min-width: 40px;
+        min-height: 40px;
+        font-size: 14px;
+    }
+
+    .btn-round {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .btn-with-text {
+        padding: 10px 16px;
+    }
+
+    .btn-with-text .btn-text {
+        font-size: 13px;
+    }
+
+    .unified-notification {
+        right: 10px;
+        left: 10px;
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-unified {
+        min-width: 35px;
+        min-height: 35px;
+        font-size: 13px;
+    }
+
+    .btn-round {
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
+        min-height: 35px;
+    }
+
+    .button-group {
+        gap: 8px;
+    }
+
+    .unified-badge {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+        top: -6px;
+        right: -6px;
+    }
+}
+
+/* Animations */
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.1);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    75% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-5px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideInNotification {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutNotification {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Dark Theme Support */
+@media (prefers-color-scheme: dark) {
+
+    .btn-wishlist-unified,
+    .btn-cart-unified,
+    .btn-view-unified,
+    .btn-login-unified {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .unified-badge {
+        border-color: #1a1a1a;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .btn-unified {
+        border: 2px solid;
+        font-weight: 700;
+    }
+
+    .btn-wishlist-unified {
+        border-color: #dc3545;
+    }
+
+    .btn-cart-unified {
+        border-color: #28a745;
+    }
+
+    .btn-view-unified {
+        border-color: #d4af37;
+    }
+
+    .btn-login-unified {
+        border-color: #007bff;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .btn-unified,
+    .unified-notification,
+    .unified-badge {
+        animation: none;
+        transition: none;
+    }
+
+    .btn-unified:hover {
+        transform: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+
+    .btn-unified,
+    .unified-notification {
+        display: none;
+    }
+}
