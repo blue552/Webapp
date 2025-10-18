@@ -1,8 +1,7 @@
-@extends('layouts.app')
-
-@section('title', 'Thêm sản phẩm mới - LuxeAura')
-
-@section('content')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl">Thêm sản phẩm mới</h2>
+    </x-slot>
 <!-- Create Product Header -->
 <section class="create-product-header">
     <div class="container">
@@ -71,6 +70,18 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="categories" class="form-label">Danh mục sản phẩm <span class="text-danger">*</span></label>
+                            <select name="categories[]" id="categories" class="form-control" multiple required>
+                                @foreach(\App\Models\Category::all() as $category)
+                                    <option value="{{ $category->id }}" {{ in_array($category->id, old('categories', [])) ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <small class="form-text text-muted">Chọn một hoặc nhiều danh mục cho sản phẩm (giữ Ctrl để chọn nhiều)</small>
+                        </div>
+
+                        <div class="form-group">
                             <label for="image" class="form-label">Hình ảnh sản phẩm</label>
                             <input type="file" name="image" id="image" class="form-control" accept="image/*">
                             <small class="form-text text-muted">Chọn file ảnh (JPG, PNG, GIF) - Tối đa 2MB</small>
@@ -90,9 +101,7 @@
         </div>
     </div>
 </section>
-@endsection
 
-@push('styles')
 <style>
 .create-product-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -180,4 +189,5 @@
     margin-top: 0.25rem;
 }
 </style>
-@endpush
+
+</x-app-layout>

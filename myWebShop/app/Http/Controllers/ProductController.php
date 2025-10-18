@@ -21,31 +21,37 @@ class ProductController extends Controller
     }
     public function store(Request $request)
     {
-        // Validate request
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'categories' => 'required|array|min:1',
+            'categories.*' => 'exists:categories,id'
         ]);
-
+        
         $data = $request->only(['name', 'description', 'price', 'stock']);
 
         // Handle image upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->storeAs('public/products', $imageName);
-            $data['image'] = 'products/' . $imageName;
+            $image->move(public_path('images/products'), $imageName); 
+            $data['image'] = $imageName;
         }
 
-        Product::create($data);
+        $product = Product::create($data);
+        
+        // Attach categories to product
+        $product->categories()->attach($request->categories);
+        
         return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công!');
     }
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Xóa sản phẩm thành công!');
     }
@@ -57,11 +63,40 @@ class ProductController extends Controller
         
     }
     public function edit($id){
-
+        $product = Product::findOrFail($id);
+        return view('products.edit',compact('product'));
     }
     public function update(Request $request,$id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0|max:1000000000',
+            'stock' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $stock = $request->input('stock');
+        $price =$request->input('price');
+        $product = Product::findOrFail($id);
+        $product->update(
+            [
+                'name'=> $name ,
+                'description' => $description,
+                'stock' => $stock,
+                'price' => $price,
 
+                ]
+            );
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images/products'), $imageName);
+            $product->update(['image' => $imageName]);
+        }
+
+        return redirect()->route('products.index')->with('success', 'Cập nhật sản phẩm thành công!');
     }
 }
 

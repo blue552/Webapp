@@ -1,0 +1,17 @@
+GET http://127.0.0.1:8000/api/products
+Accept: application/json
+###
+GET http://127.0.0.1:8000/api/products/2
+###
+POST http://127.0.0.1:8000/api/products
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Chien Thang",
+  "description": "Viet nam muon nam",
+  "price": 1000,
+  "stock": 1
+}
+###
+GET http://127.0.0.1:8000/products
