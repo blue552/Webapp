@@ -6,13 +6,19 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'Hello from Railway! App is working.';
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/test', function () {
+    return response()->json(['status' => 'ok', 'message' => 'Test route working']);
+});
 
+Route::get('/health', function () {
+    return 'OK';
+});
+
+// Temporarily commented out complex routes to debug 505 error
+/*
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -32,3 +38,4 @@ Route::prefix('categories')->name('categories.')->middleware('auth')->group(func
     Route::get('/',[CategoryController::class,'index'])->name('index');
     Route::get('/{slug}',[CategoryController::class,'show'])->name('show');
 });
+*/
