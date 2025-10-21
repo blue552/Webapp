@@ -3,15 +3,42 @@ Accept: application/json
 ###
 GET http://127.0.0.1:8000/api/products/2
 ###
+P### Get all products
+GET http://127.0.0.1:8000/api/products
+Accept: application/json
+
+### Get single product
+GET http://127.0.0.1:8000/api/products/1
+Accept: application/json
+
+### Create new product
 POST http://127.0.0.1:8000/api/products
 Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Chien Thang",
-  "description": "Viet nam muon nam",
+  "name": "Banh gato",
+  "description": "Banh ngon re",
   "price": 1000,
-  "stock": 1
+  "stock": 1,
+  "categories": [1, 2]
 }
+
+### Update product
+PUT http://127.0.0.1:8000/api/products/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Banh gato updated",
+  "description": "Banh ngon re updated",
+  "price": 1500,
+  "stock": 5,
+  "categories": [1]
+}
+
+### Delete product
+DELETE http://127.0.0.1:8000/api/products/1
+Accept: application/json
 ###
 GET http://127.0.0.1:8000/products

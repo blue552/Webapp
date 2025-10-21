@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         
         // Create products
         $product1 = Product::firstOrCreate(
-            ['name' => 'San pham 1'],
+            ['name' => 'San '],
             ['description' => 'San pham ra mat dau tien', 'price' => 100,'stock' => 1]
         );
         $product2 = Product::firstOrCreate(

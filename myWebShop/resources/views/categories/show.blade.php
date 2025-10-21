@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-gray-900 dark:text-gray-100">{{ $category->name }}</h2>
@@ -43,7 +47,21 @@
                     <div class="product-card bg-transparent border-0 p-0">
                         <div class="relative aspect-square max-w-[200px] overflow-hidden rounded-md">
                             @if($product->image)
-                                <img src="{{ route('image', $product->image) }}" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover">
+                                @if(Storage::exists('public/' . $product->image))
+                                    <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover">
+                                @elseif(file_exists(public_path('images/products/' . $product->image)))
+                                    <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover">
+                                @else
+                                    <div class="absolute inset-0 flex items-center justify-center text-gray-500">
+                                        <i class="fa fa-image"></i>
+                                        <span class="ml-2">Ảnh không tồn tại</span>
+                                    </div>
+                                @endif
+                            @else
+                                <div class="absolute inset-0 flex items-center justify-center text-gray-500">
+                                    <i class="fa fa-image"></i>
+                                    <span class="ml-2">Chưa có ảnh</span>
+                                </div>
                             @endif
                         </div>
 

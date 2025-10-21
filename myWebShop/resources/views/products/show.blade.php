@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-gray-900 dark:text-gray-100">{{ $product->name }}</h2>
@@ -30,7 +34,16 @@
             <div class="col-lg-6">
                 <div class="product-image-section">
                     @if($product->image)
-                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="product-main-image">
+                        @if(Storage::exists('public/' . $product->image))
+                            <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="product-main-image">
+                        @elseif(file_exists(public_path('images/products/' . $product->image)))
+                            <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="product-main-image">
+                        @else
+                            <div class="no-image-large">
+                                <i class="fa fa-image"></i>
+                                <span>Ảnh không tồn tại</span>
+                            </div>
+                        @endif
                     @else
                         <div class="no-image-large">
                             <i class="fa fa-image"></i>
