@@ -1,20 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return 'Hello from Railway! App is working.';
+    return 'Hello Railway!';
 });
 
 Route::get('/test', function () {
-    return response()->json(['status' => 'ok', 'message' => 'Test route working']);
-});
-
-Route::get('/health', function () {
-    return 'OK';
+    return 'Test OK';
 });
 
 // Temporarily commented out complex routes to debug 505 error
