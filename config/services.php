@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'aiven' => [
+        'project_name' => env('AIVEN_PROJECT_NAME'),
+        'service_name' => env('AIVEN_SERVICE_NAME'),
+        'api_token' => env('AIVEN_API_TOKEN'),
+    ],
+
 ];
