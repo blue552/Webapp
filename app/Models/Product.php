@@ -9,7 +9,7 @@ class Product extends Model
     protected $fillable = ['name','description','stock','price','image'];
     public function categories()
     {
-        return $this->belongstoMany(Category::class);
+        return $this->belongsToMany(Category::class);
     }
     public function scopeByCategorySlug($query, $slug)
     {

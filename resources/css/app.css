@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.products-title {
+    /* Kích thước & độ đậm tương đương text-3xl + font-bold */
+    font-size: 1.875rem;      /* 30px */
+    line-height: 2.25rem;     /* 36px */
+    font-weight: 700;
+    color: #111827;           /* màu chữ bạn muốn ở chế độ sáng */
+}
+
+/* Nếu đang dùng dark mode và muốn màu khác đi */
+.dark .products-title {
+    color: #e5e7eb;           /* hoặc màu bạn chọn */
+}

@@ -24,6 +24,12 @@
                     <a href="{{ route('profile.edit') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                         Profile
                     </a>
+                    <form method="POST" action="{{ route('logout') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400">
+                        @csrf
+                        <button type="submit">
+                            Đăng xuất
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,61 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Laravel E‑Commerce (Laravel 12)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ứng dụng quản lý sản phẩm & danh mục bánh ngọt (web + API), dùng Laravel 12, Vite, Tailwind và MySQL (Aiven) hoặc SQLite.
 
-## About Laravel
+Ứng dụng mô phỏng một **cửa hàng bánh online** với khu vực quản trị đơn giản nhưng hiện đại:
+- Người dùng đăng ký / đăng nhập bằng Laravel Breeze, sau đó truy cập dashboard với banner, thống kê nhanh và các sản phẩm nổi bật.
+- Quản trị viên có thể **tạo sản phẩm** với tên, mô tả, giá, tồn kho, hình ảnh và gán vào một loại bánh phù hợp.
+- Danh mục (loại bánh) được seed sẵn (Gato, Tiramisu, Mochi, Cupcake, Cookie, Donut, Tart, Cheesecake) để bạn dùng ngay.
+- Mỗi sản phẩm hiển thị đẹp ở trang danh sách: ảnh, tên, giá, tồn kho, tag danh mục và các nút Xem / Sửa / Xóa.
+- Trang chi tiết danh mục cho phép xem nhanh tất cả sản phẩm thuộc loại bánh đó.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Phần API cung cấp các endpoint `/api/products` để:
+- Lấy danh sách sản phẩm (JSON) phục vụ frontend khác hoặc mobile app.
+- Xem chi tiết, tạo mới, cập nhật, xóa sản phẩm (RESTful, có validation).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Ứng dụng được thiết kế để chạy **local với Aiven MySQL** (dùng service MySQL trên Aiven làm database chính) và vẫn có thể chuyển sang SQLite khi cần.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Cài đặt nhanh (local + Aiven MySQL)
 
-## Learning Laravel
+```bash
+git clone <repository-url>
+cd laravel-projects
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+composer install
+npm install
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Tạo file `.env` (có thể copy từ `.env.example`) và cấu hình **MySQL của Aiven**:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```env
+APP_ENV=local
+APP_DEBUG=true
 
-## Laravel Sponsors
+DB_CONNECTION=mysql
+DB_HOST=<host từ Aiven>
+DB_PORT=<port>
+DB_DATABASE=defaultdb
+DB_USERNAME=avnadmin
+DB_PASSWORD=<password>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+MYSQL_ATTR_SSL_CA=storage/app/ca-certificate.crt
+MYSQL_ATTR_SSL_VERIFY_SERVER_CERT=false
+```
 
-### Premium Partners
+- Tải CA certificate từ Aiven Console và lưu vào `storage/app/ca-certificate.crt`.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Chạy migrations + seeder tạo loại sản phẩm:
 
-## Contributing
+```bash
+php artisan migrate
+php artisan db:seed --class=CategorySeeder
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Build/frontend:
 
-## Code of Conduct
+```bash
+npm run dev     # dev
+# hoặc
+npm run build   # production
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Chạy ứng dụng:
 
-## Security Vulnerabilities
+```bash
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Truy cập `http://localhost:8000`.
 
-## License
+### 2. Tính năng chính
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Quản lý sản phẩm (CRUD, upload ảnh, tồn kho, giá).
+- Quản lý danh mục; mỗi sản phẩm gắn 1 hoặc nhiều danh mục.
+- Auth bằng Laravel Breeze (đăng ký / đăng nhập / profile).
+- API `products` (GET/POST/PUT/DELETE) trả về JSON.
+
+### 3. Lệnh hữu ích
+
+```bash
+php artisan migrate:fresh --seed   # reset DB + seed lại
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+```
+
+### 4. Ghi chú
+
+- Nhớ chạy `CategorySeeder` trước khi thêm sản phẩm.
+- Với production, luôn dùng `APP_DEBUG=false` và `php artisan config:cache`.

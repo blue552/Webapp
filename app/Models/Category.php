@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 class Category extends Model
 {
-    protected $fillable = ['name', 'slug', 'description'];
+    protected $fillable = ['name', 'slug', 'description', 'image'];
 
     public function products()
     {
-        return $this->belongstoMany(Product::class);    
+        return $this->belongsToMany(Product::class);    
 
     }
     public function getRouteKeyName()
