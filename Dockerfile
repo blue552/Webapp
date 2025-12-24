@@ -24,7 +24,6 @@ RUN chmod -R 777 storage bootstrap/cache
 
 # Cài PHP dependencies và build frontend
 RUN composer install --no-dev --optimize-autoloader \
- && php artisan key:generate --force \
  && npm install \
  && npm run build
 
