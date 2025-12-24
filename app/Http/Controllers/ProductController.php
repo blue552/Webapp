@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -39,8 +40,8 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/products'), $imageName); 
-            $data['image'] = $imageName;
+            $path = $image->storeAs('public/images/products', $imageName);
+            $data['image'] = 'images/products/' . $imageName;
         }
 
         $product = Product::create($data);
@@ -84,14 +85,14 @@ class ProductController extends Controller
         // Handle image upload
         if ($request->hasFile('image')) {
             // Delete old image if exists
-            if ($product->image && file_exists(public_path('images/products/' . $product->image))) {
-                unlink(public_path('images/products/' . $product->image));
+            if ($product->image && Storage::exists('public/' . $product->image)) {
+                Storage::delete('public/' . $product->image);
             }
             
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/products'), $imageName);
-            $data['image'] = $imageName;
+            $path = $image->storeAs('public/images/products', $imageName);
+            $data['image'] = 'images/products/' . $imageName;
         }
         
         $product->update($data);

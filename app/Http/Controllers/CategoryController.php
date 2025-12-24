@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     { 
-       $categories = Category::orderByDesc('id')->get();
+       $categories = Category::with('products')->orderByDesc('id')->get();
        return view('categories.index',compact('categories'));
     }
     public function show($slug)
