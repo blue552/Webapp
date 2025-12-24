@@ -27,5 +27,7 @@ RUN composer install --no-dev --optimize-autoloader \
  && npm install \
  && npm run build
 
-# Mặc định Render sẽ set biến PORT, dùng để artisan serve
-CMD php artisan serve --host 0.0.0.0 --port ${PORT:-8000}
+# Khi container start: migrate + seed (idempotent) rồi mới serve
+CMD php artisan migrate --force \
+ && php artisan db:seed --class=CategorySeeder --force \
+ && php artisan serve --host 0.0.0.0 --port ${PORT:-8000}
