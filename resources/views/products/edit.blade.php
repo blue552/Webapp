@@ -1,160 +1,230 @@
-<form action="{{ route('products.update',$product->id)}}" method="POST" >
-    @csrf
-    @method('PUT')
-    @if ($errors->any())
-        <div class="alert alert-danger" role="alert">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <div class ="form-group">
-        <label for="name"> Tên sản phẩm </label>
-        <input type ="text" id="name" name="name" class="form-control" value= "{{ old('name',$product->name)}} "required>
-    </div>
-    <div class="form-group">
-        <label for="description">Mô tả</label>
-        <textarea id="description" name="description" rows="5" class="form-control">{{ old('description', $product->description) }}</textarea>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="price">Giá (VNĐ)</label>
-            <input type="number" id="price" name="price" class="form-control"
-                   step="0.01" min="0" value="{{ old('price', $product->price) }}" required>
-            @error('price')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-        <div class="form-group col-md-6">
-            <label for="stock">Tồn kho</label>
-            <input type="number" id="stock" name="stock" class="form-control"
-                   min="0" value="{{ old('stock', $product->stock) }}" required>
-        </div>
-</div>
-    <div class="form-group">
-        <label class="form-label">Danh mục sản phẩm</label>
-        
-        @if($categories->count() > 0)
-            <div class="categories-checkbox-container" style="border: 2px solid #e9ecef; border-radius: 8px; padding: 1rem; background: #f8f9fa; max-height: 200px; overflow-y: auto;">
-                @foreach($categories as $category)
-                    <div class="form-check mb-2">
-                        <input 
-                            class="form-check-input" 
-                            type="checkbox" 
-                            name="categories[]" 
-                            id="category_{{ $category->id }}" 
-                            value="{{ $category->id }}"
-                            {{ in_array($category->id, old('categories', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}
-                        >
-                        <label class="form-check-label" for="category_{{ $category->id }}" style="cursor: pointer; font-weight: 500; color: #2c3e50;">
-                            {{ $category->name }}
-                            @if($category->description)
-                                <small class="d-block text-muted" style="font-weight: normal; font-size: 0.875rem;">{{ $category->description }}</small>
+@php
+    $currentCategoryId = old('category_id', $product->categories->pluck('id')->first());
+@endphp
+
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Chỉnh sửa sản phẩm: {{ $product->name }}
+        </h2>
+    </x-slot>
+
+    <section class="edit-product-form py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto">
+                <div class="edit-form-card bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-indigo-100 dark:border-gray-700 p-8">
+                    @if ($errors->any())
+                        <div class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                            <h3 class="font-semibold mb-2"><i class="fa fa-exclamation-triangle mr-1"></i> Vui lòng kiểm tra lại thông tin:</h3>
+                            <ul class="list-disc list-inside text-sm">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('products.update',$product->id)}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                                Tên sản phẩm <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="name" name="name"
+                                   class="form-control w-full rounded-lg border-2 border-indigo-100 focus:border-indigo-400 focus:ring-indigo-300"
+                                   value="{{ old('name',$product->name)}}"
+                                   required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                                Mô tả
+                            </label>
+                            <textarea id="description" name="description" rows="4"
+                                      class="form-control w-full rounded-lg border-2 border-indigo-100 focus:border-indigo-400 focus:ring-indigo-300"
+                                      placeholder="Mô tả chi tiết về sản phẩm">{{ old('description', $product->description) }}</textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="price" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                                    Giá (VNĐ) <span class="text-red-500">*</span>
+                                </label>
+                                <input type="number" id="price" name="price"
+                                       class="form-control w-full rounded-lg border-2 border-indigo-100 focus:border-indigo-400 focus:ring-indigo-300"
+                                       step="0.01" min="0" value="{{ old('price', $product->price) }}" required>
+                                @error('price')
+                                    <small class="text-red-600 text-sm">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="stock" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                                    Tồn kho <span class="text-red-500">*</span>
+                                </label>
+                                <input type="number" id="stock" name="stock"
+                                       class="form-control w-full rounded-lg border-2 border-indigo-100 focus:border-indigo-400 focus:ring-indigo-300"
+                                       min="0" value="{{ old('stock', $product->stock) }}" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <label class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-2">
+                                Danh mục sản phẩm <span class="text-red-500">*</span>
+                            </label>
+
+                            @if($categories->count() > 0)
+                                <div class="categories-radio-container">
+                                    @foreach($categories as $category)
+                                        <div class="form-check-radio mb-3">
+                                            <input
+                                                class="form-check-input-radio"
+                                                type="radio"
+                                                name="category_id"
+                                                id="category_{{ $category->id }}"
+                                                value="{{ $category->id }}"
+                                                {{ $currentCategoryId == $category->id ? 'checked' : '' }}
+                                                required
+                                            >
+                                            <label class="form-check-label-radio" for="category_{{ $category->id }}">
+                                                <span class="text-indigo-600 dark:text-indigo-300 font-semibold">{{ $category->name }}</span>
+                                                @if($category->description)
+                                                    <small class="d-block text-muted text-sm">{{ $category->description }}</small>
+                                                @endif
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <small class="text-gray-500 dark:text-gray-400 text-sm mt-1 block">Chọn một danh mục cho sản phẩm</small>
+                            @else
+                                <div class="alert alert-warning bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg">
+                                    <i class="fa fa-exclamation-triangle mr-1"></i>
+                                    <strong>Chưa có danh mục nào!</strong>
+                                    Vui lòng <a href="{{ route('categories.index') }}" class="text-indigo-600 font-semibold underline">tạo danh mục</a> trước.
+                                </div>
                             @endif
-                        </label>
-                    </div>
-                @endforeach
+
+                            @error('category_id')
+                                <div class="text-red-600 mt-1 text-sm">
+                                    <i class="fa fa-exclamation-circle mr-1"></i> {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="mt-6">
+                            <label for="image" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                                Ảnh (tùy chọn)
+                            </label>
+                            <input type="file" id="image" name="image" class="form-control-file">
+                            @if($product->image)
+                                <div class="mt-3">
+                                    <small class="text-gray-500 dark:text-gray-400">Ảnh hiện tại:</small>
+                                    @if(file_exists(public_path('images/products/' . $product->image)))
+                                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="mt-2 rounded-lg shadow-md max-h-40">
+                                    @endif
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="mt-8 flex justify-center gap-4">
+                            <a href="{{ route('products.index') }}" class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 shadow-sm">
+                                <i class="fa fa-times mr-1"></i> Hủy
+                            </a>
+                            <button type="submit" class="px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-md">
+                                <i class="fa fa-save mr-1"></i> Cập nhật
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <small class="form-text text-muted">Chọn một hoặc nhiều danh mục cho sản phẩm</small>
-        @else
-            <div class="alert alert-warning" style="background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; padding: 1rem; border-radius: 8px;">
-                <i class="fa fa-exclamation-triangle"></i> 
-                <strong>Chưa có danh mục nào!</strong> 
-                Vui lòng <a href="{{ route('categories.index') }}" class="text-primary font-weight-bold">tạo danh mục</a> trước.
-            </div>
-        @endif
-        
-        @error('categories')
-            <div class="text-danger mt-1" style="font-size: 0.875rem;">
-                <i class="fa fa-exclamation-circle"></i> {{ $message }}
-            </div>
-        @enderror
-    </div>
+        </div>
+    </section>
 
-    <div class="form-group">
-        <label for="image">Ảnh (tùy chọn)</label>
-        <input type="file" id="image" name="image" class="form-control-file" accept="image/*">
-        @if($product->image)
-            <div class="mt-2">
-                <small class="text-muted">Ảnh hiện tại:</small>
-                @if(file_exists(public_path('images/products/' . $product->image)))
-                    <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 0.5rem;">
-                @endif
-            </div>
-        @endif
-    </div>
-    <button type="submit" class="btn btn-primary">Cập nhật</button>
-</form>
+    <style>
+    .categories-radio-container {
+        border: 2px solid #e0e7ff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+        max-height: 260px;
+        overflow-y: auto;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    }
 
-<style>
-.categories-checkbox-container {
-    scrollbar-width: thin;
-    scrollbar-color: #667eea #f8f9fa;
-}
+    .categories-radio-container::-webkit-scrollbar {
+        width: 10px;
+    }
 
-.categories-checkbox-container::-webkit-scrollbar {
-    width: 8px;
-}
+    .categories-radio-container::-webkit-scrollbar-track {
+        background: #f8f9ff;
+        border-radius: 5px;
+    }
 
-.categories-checkbox-container::-webkit-scrollbar-track {
-    background: #f8f9fa;
-    border-radius: 4px;
-}
+    .categories-radio-container::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 5px;
+    }
 
-.categories-checkbox-container::-webkit-scrollbar-thumb {
-    background: #667eea;
-    border-radius: 4px;
-}
+    .categories-radio-container::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #5568d3 0%, #6b46c1 100%);
+    }
 
-.categories-checkbox-container::-webkit-scrollbar-thumb:hover {
-    background: #5568d3;
-}
+    .form-check-radio {
+        display: flex;
+        align-items: flex-start;
+        padding: 0.75rem;
+        border-radius: 10px;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+    }
 
-.form-check {
-    display: flex;
-    align-items: flex-start;
-    padding: 0.5rem;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
-}
+    .form-check-radio:hover {
+        background-color: rgba(102, 126, 234, 0.06);
+        border-color: #e0e7ff;
+        transform: translateX(4px);
+    }
 
-.form-check:hover {
-    background-color: rgba(102, 126, 234, 0.05);
-}
+    .form-check-input-radio {
+        width: 1.3rem;
+        height: 1.3rem;
+        margin-top: 0.15rem;
+        margin-right: 0.9rem;
+        cursor: pointer;
+        border: 3px solid #c7d2fe;
+        border-radius: 50%;
+        flex-shrink: 0;
+        appearance: none;
+        position: relative;
+        transition: all 0.2s ease;
+    }
 
-.form-check-input {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-top: 0.125rem;
-    margin-right: 0.75rem;
-    cursor: pointer;
-    border: 2px solid #667eea;
-    border-radius: 4px;
-    flex-shrink: 0;
-}
+    .form-check-input-radio:checked {
+        border-color: #667eea;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
 
-.form-check-input:checked {
-    background-color: #667eea;
-    border-color: #667eea;
-}
+    .form-check-input-radio:checked::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 50%;
+        background: white;
+    }
 
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-}
+    .form-check-input-radio:focus {
+        box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+        outline: none;
+    }
 
-.form-check-label {
-    flex: 1;
-    cursor: pointer;
-    user-select: none;
-}
-
-.alert-warning a {
-    text-decoration: underline;
-}
-
-.alert-warning a:hover {
-    text-decoration: none;
-}
-</style>
+    .form-check-label-radio {
+        flex: 1;
+        cursor: pointer;
+        user-select: none;
+    }
+    </style>
+</x-app-layout>
