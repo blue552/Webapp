@@ -116,11 +116,13 @@
                             <label for="image" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
                                 Ảnh (tùy chọn)
                             </label>
-                            <input type="file" id="image" name="image" class="form-control-file">
+                            <input type="file" id="image" name="image" class="form-control-file" accept="image/*">
                             @if($product->image)
                                 <div class="mt-3">
                                     <small class="text-gray-500 dark:text-gray-400">Ảnh hiện tại:</small>
-                                    @if(file_exists(public_path('images/products/' . $product->image)))
+                                    @if(Storage::exists('public/' . $product->image))
+                                        <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="mt-2 rounded-lg shadow-md max-h-40">
+                                    @elseif(file_exists(public_path('images/products/' . $product->image)))
                                         <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="mt-2 rounded-lg shadow-md max-h-40">
                                     @endif
                                 </div>

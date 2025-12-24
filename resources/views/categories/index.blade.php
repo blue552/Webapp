@@ -19,7 +19,9 @@
                         <!-- Category Image or Icon -->
                         <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-br from-purple-100 via-indigo-100 to-pink-100">
                             @if($category->image)
-                                @if(Storage::exists('public/' . $category->image))
+                                @if(filter_var($category->image, FILTER_VALIDATE_URL))
+                                    <img src="{{ $category->image }}" alt="{{ $category->name }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
+                                @elseif(Storage::exists('public/' . $category->image))
                                     <img src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
                                 @elseif(file_exists(public_path('images/categories/' . $category->image)))
                                     <img src="{{ asset('images/categories/' . $category->image) }}" alt="{{ $category->name }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">

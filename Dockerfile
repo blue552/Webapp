@@ -22,12 +22,16 @@ COPY . .
 # Phân quyền storage và cache
 RUN chmod -R 777 storage bootstrap/cache
 
+# Tạo thư mục cho images
+RUN mkdir -p storage/app/public/images/products && chmod -R 777 storage/app/public
+
 # Cài PHP dependencies và build frontend
 RUN composer install --no-dev --optimize-autoloader \
  && npm install \
  && npm run build
 
-# Khi container start: migrate + seed (idempotent) rồi mới serve
+# Khi container start: migrate + seed + storage link rồi mới serve
 CMD php artisan migrate --force \
- && php artisan db:seed --class=CategorySeeder --force \
+ && php artisan db:seed --force \
+ && php artisan storage:link || true \
  && php artisan serve --host 0.0.0.0 --port ${PORT:-8000}

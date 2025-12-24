@@ -26,23 +26,25 @@
         <div class="product-detail-wrapper">
             <!-- Product Image Section -->
             <div class="product-image-card">
-                @if($product->image)
-                    @if(Storage::exists('public/' . $product->image))
-                        <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="product-main-image">
-                    @elseif(file_exists(public_path('images/products/' . $product->image)))
-                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="product-main-image">
-                    @else
-                        <div class="no-image-placeholder">
-                            <i class="fa fa-image"></i>
-                            <span>Ảnh không tồn tại</span>
-                        </div>
-                    @endif
-                @else
-                    <div class="no-image-placeholder">
-                        <i class="fa fa-image"></i>
-                        <span>Chưa có hình ảnh</span>
-                    </div>
-                @endif
+                        @if($product->image)
+                            @if(filter_var($product->image, FILTER_VALIDATE_URL))
+                                <img src="{{ $product->image }}" alt="{{ $product->name }}" class="product-main-image">
+                            @elseif(Storage::exists('public/' . $product->image))
+                                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="product-main-image">
+                            @elseif(file_exists(public_path('images/products/' . $product->image)))
+                                <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="product-main-image">
+                            @else
+                                <div class="no-image-placeholder">
+                                    <i class="fa fa-image"></i>
+                                    <span>Ảnh không tồn tại</span>
+                                </div>
+                            @endif
+                        @else
+                            <div class="no-image-placeholder">
+                                <i class="fa fa-image"></i>
+                                <span>Chưa có hình ảnh</span>
+                            </div>
+                        @endif
             </div>
 
             <!-- Product Info Section -->

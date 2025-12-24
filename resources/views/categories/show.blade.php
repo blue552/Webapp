@@ -47,7 +47,9 @@
                     <div class="product-card bg-transparent border-0 p-0">
                         <div class="relative aspect-square max-w-[200px] overflow-hidden rounded-md">
                             @if($product->image)
-                                @if(Storage::exists('public/' . $product->image))
+                                @if(filter_var($product->image, FILTER_VALIDATE_URL))
+                                    <img src="{{ $product->image }}" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover">
+                                @elseif(Storage::exists('public/' . $product->image))
                                     <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover">
                                 @elseif(file_exists(public_path('images/products/' . $product->image)))
                                     <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover">

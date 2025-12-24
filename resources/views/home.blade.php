@@ -165,7 +165,9 @@
                         <!-- Product Image -->
                         <div class="relative h-48 bg-gray-200 dark:bg-gray-700 overflow-hidden">
                             @if($product->image)
-                                @if(Storage::exists('public/' . $product->image))
+                                @if(filter_var($product->image, FILTER_VALIDATE_URL))
+                                    <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                                @elseif(Storage::exists('public/' . $product->image))
                                     <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
                                 @elseif(file_exists(public_path('images/products/' . $product->image)))
                                     <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">

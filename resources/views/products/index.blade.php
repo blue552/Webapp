@@ -37,7 +37,9 @@
                         <!-- Product Image -->
                         <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                             @if($product->image)
-                                @if(Storage::exists('public/' . $product->image))
+                                @if(filter_var($product->image, FILTER_VALIDATE_URL))
+                                    <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
+                                @elseif(Storage::exists('public/' . $product->image))
                                     <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
                                 @elseif(file_exists(public_path('images/products/' . $product->image)))
                                     <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
