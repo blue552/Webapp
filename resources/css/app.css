@@ -13,3 +13,19 @@
 .dark .products-title {
     color: #e5e7eb;           /* hoặc màu bạn chọn */
 }
+
+/* Button màu nâu trầm cho auth pages */
+.btn-brown {
+    background: linear-gradient(135deg, #8b6f47, #a0826d);
+    color: white;
+    transition: all 0.15s ease-in-out;
+}
+
+.btn-brown:hover {
+    background: linear-gradient(135deg, #7a5f3a, #8b6f47);
+}
+
+.btn-brown:focus {
+    outline: 2px solid #8b6f47;
+    outline-offset: 2px;
+}
