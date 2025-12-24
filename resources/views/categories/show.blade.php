@@ -4,25 +4,25 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-gray-900 dark:text-gray-100">{{ $category->name }}</h2>
+        <h2 class="font-semibold text-black">{{ $category->name }}</h2>
     </x-slot>
 
 <!-- Category Products Content -->
-<section class="products-content bg-gray-50 dark:bg-gray-900 py-8">
+<section class="products-content py-8" style="background: linear-gradient(to bottom right, #f5ebe0, #e8dcc6, #d4c4a8);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
         <nav class="mb-6">
             <ol class="flex items-center space-x-2 text-sm">
                 <li><a href="{{ route('products.index') }}" class="text-blue-600 hover:text-blue-800">Sản phẩm</a></li>
-                <li class="text-gray-500">/</li>
-                <li class="text-gray-700 dark:text-gray-300">{{ $category->name }}</li>
+                <li class="text-black">/</li>
+                <li class="text-black">{{ $category->name }}</li>
             </ol>
         </nav>
 
         <!-- Category Description -->
         @if($category->description)
-            <div class="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-                <p class="text-gray-700 dark:text-gray-300">{{ $category->description }}</p>
+            <div class="mb-6 p-4 rounded-lg shadow" style="background: #faf5f0;">
+                <p class="text-black">{{ $category->description }}</p>
             </div>
         @endif
 
@@ -35,7 +35,7 @@
 
         <!-- Products Count -->
         <div class="mb-4">
-            <p class="text-gray-600 dark:text-gray-400">
+            <p class="text-black">
                 Tìm thấy {{ $products->count() }} sản phẩm trong danh mục "{{ $category->name }}"
             </p>
         </div>
@@ -67,16 +67,16 @@
                             @endif
                         </div>
 
-                        <h3 class="mt-3 font-semibold text-gray-900 dark:text-gray-100">{{ $product->name }}</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">{{ Str::limit($product->description, 80) }}</p>
+                        <h3 class="mt-3 font-semibold text-black">{{ $product->name }}</h3>
+                        <p class="text-sm text-black">{{ Str::limit($product->description, 80) }}</p>
                         <div class="mt-1 flex items-center text-sm">
                             <span class="font-semibold text-red-600">{{ number_format($product->price, 0, ',', '.') }} VNĐ</span>
-                            <span class="text-gray-500">Kho: {{ $product->stock }}</span>
+                            <span class="text-black">Kho: {{ $product->stock }}</span>
                         </div>
 
                         <div class="product-actions mt-3 flex gap-3">
                             <a href="{{ route('products.show', $product->id) }}" class="font-semibold text-blue-600 hover:underline">Xem</a>
-                            <a href="{{ route('products.edit', $product->id) }}" class="font-semibold text-gray-900 dark:text-gray-100 hover:underline">Sửa</a>
+                            <a href="{{ route('products.edit', $product->id) }}" class="font-semibold text-black hover:underline">Sửa</a>
                             <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="">
                                 @csrf
                                 @method('DELETE')
@@ -87,7 +87,7 @@
                 </div>
             @empty
                 <div class="col-span-full text-center py-12">
-                    <div class="text-gray-500 dark:text-gray-400">
+                    <div class="text-black">
                         <i class="fa fa-box-open text-4xl mb-4"></i>
                         <h3>Chưa có sản phẩm nào trong danh mục này</h3>
                         <p>Hãy thêm sản phẩm vào danh mục "{{ $category->name }}"</p>

@@ -4,12 +4,12 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-black leading-tight">
             Dashboard - Quản lý cửa hàng bánh
         </h2>
     </x-slot>
 
-    <div class="py-6">
+    <div class="py-6 min-h-screen" style="background: linear-gradient(to bottom right, #f5ebe0, #e8dcc6, #d4c4a8);">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Success Message -->
             @if (session('status'))
@@ -20,8 +20,8 @@
 
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="overflow-hidden shadow-sm sm:rounded-lg" style="background: #faf5f0;">
+                    <div class="p-6 text-black">
                         <div class="flex items-center">
                             <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
                                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -30,16 +30,16 @@
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Tổng sản phẩm</dt>
-                                    <dd class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ number_format($stats['total_products']) }}</dd>
+                                    <dt class="text-sm font-medium text-black truncate">Tổng sản phẩm</dt>
+                                    <dd class="text-lg font-semibold text-black">{{ number_format($stats['total_products']) }}</dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="overflow-hidden shadow-sm sm:rounded-lg" style="background: #faf5f0;">
+                    <div class="p-6 text-black">
                         <div class="flex items-center">
                             <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
                                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,16 +48,16 @@
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Danh mục</dt>
-                                    <dd class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ number_format($stats['total_categories']) }}</dd>
+                                    <dt class="text-sm font-medium text-black truncate">Danh mục</dt>
+                                    <dd class="text-lg font-semibold text-black">{{ number_format($stats['total_categories']) }}</dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="overflow-hidden shadow-sm sm:rounded-lg" style="background: #faf5f0;">
+                    <div class="p-6 text-black">
                         <div class="flex items-center">
                             <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
                                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -66,16 +66,16 @@
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Tổng tồn kho</dt>
-                                    <dd class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ number_format($stats['total_stock']) }}</dd>
+                                    <dt class="text-sm font-medium text-black truncate">Tổng tồn kho</dt>
+                                    <dd class="text-lg font-semibold text-black">{{ number_format($stats['total_stock']) }}</dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="overflow-hidden shadow-sm sm:rounded-lg" style="background: #faf5f0;">
+                    <div class="p-6 text-black">
                         <div class="flex items-center">
                             <div class="flex-shrink-0 bg-purple-500 rounded-md p-3">
                                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -84,8 +84,8 @@
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Tổng giá trị</dt>
-                                    <dd class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ number_format($stats['total_value'], 0, ',', '.') }} VNĐ</dd>
+                                    <dt class="text-sm font-medium text-black truncate">Tổng giá trị</dt>
+                                    <dd class="text-lg font-semibold text-black">{{ number_format($stats['total_value'], 0, ',', '.') }} VNĐ</dd>
                                 </dl>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
             @if($categories->count() > 0)
             <div class="mb-8">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Danh mục nổi bật</h3>
+                    <h3 class="text-2xl font-bold text-black">Danh mục nổi bật</h3>
                     <a href="{{ route('categories.index') }}" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 font-semibold">
                         Xem tất cả →
                     </a>
@@ -132,14 +132,14 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                     @foreach($categories as $category)
                     <a href="{{ route('categories.show', $category->slug) }}" class="group">
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow p-4 text-center">
+                        <div class="rounded-lg shadow-md hover:shadow-xl transition-shadow p-4 text-center" style="background: #faf5f0;">
                             <div class="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-3xl">
                                 🍰
                             </div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">
+                            <h4 class="font-semibold text-black group-hover:text-purple-600 transition">
                                 {{ $category->name }}
                             </h4>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            <p class="text-sm text-black mt-1">
                                 {{ $category->products_count }} sản phẩm
                             </p>
                         </div>
@@ -152,7 +152,7 @@
             <!-- Featured Products Section -->
             <div>
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Sản phẩm mới nhất</h3>
+                    <h3 class="text-2xl font-bold text-black">Sản phẩm mới nhất</h3>
                     <a href="{{ route('products.index') }}" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 font-semibold">
                         Xem tất cả →
                     </a>
@@ -161,9 +161,9 @@
                 @if($featuredProducts->count() > 0)
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     @foreach($featuredProducts as $product)
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
+                    <div class="rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden" style="background: #faf5f0;">
                         <!-- Product Image -->
-                        <div class="relative h-48 bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                        <div class="relative h-48 overflow-hidden" style="background: #e8dcc6;">
                             @if($product->image)
                                 @if(filter_var($product->image, FILTER_VALIDATE_URL))
                                     <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
@@ -199,10 +199,10 @@
                         
                         <!-- Product Info -->
                         <div class="p-4">
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2">
+                            <h4 class="font-semibold text-black mb-2 line-clamp-2">
                                 {{ $product->name }}
                             </h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                            <p class="text-sm text-black mb-3 line-clamp-2">
                                 {{ Str::limit($product->description, 60) }}
                             </p>
                             
@@ -210,19 +210,19 @@
                             @if($product->categories->count() > 0)
                             <div class="flex flex-wrap gap-1 mb-3">
                                 @foreach($product->categories->take(2) as $category)
-                                <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded">
+                                <span class="text-xs px-2 py-1 rounded" style="background: #d4c4a8; color: #5c4033;">
                                     {{ $category->name }}
                                 </span>
                                 @endforeach
                             </div>
-                            @endif
-                            
+                        @endif
+
                             <!-- Price and Stock -->
                             <div class="flex items-center justify-between mb-3">
                                 <span class="text-lg font-bold text-red-600 dark:text-red-400">
                                     {{ number_format($product->price, 0, ',', '.') }} VNĐ
                                 </span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">
+                                <span class="text-sm text-black">
                                     Kho: {{ $product->stock }}
                                 </span>
                             </div>
@@ -241,12 +241,12 @@
                     @endforeach
                 </div>
                 @else
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-12 text-center">
+                <div class="rounded-lg shadow-md p-12 text-center" style="background: #faf5f0;">
                     <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Chưa có sản phẩm nào</h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4">Hãy thêm sản phẩm đầu tiên để bắt đầu</p>
+                    <h3 class="text-xl font-semibold text-black mb-2">Chưa có sản phẩm nào</h3>
+                    <p class="text-black mb-4">Hãy thêm sản phẩm đầu tiên để bắt đầu</p>
                     <a href="{{ route('products.create') }}" class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition">
                         <i class="fa fa-plus mr-2"></i>Thêm sản phẩm mới
                     </a>

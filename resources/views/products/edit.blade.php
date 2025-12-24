@@ -4,15 +4,15 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-black leading-tight">
             Chỉnh sửa sản phẩm: {{ $product->name }}
         </h2>
     </x-slot>
 
-    <section class="edit-product-form py-8">
+    <section class="edit-product-form py-8" style="background: linear-gradient(to bottom, #f5ebe0 0%, #e8dcc6 100%); min-height: 70vh;">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-3xl mx-auto">
-                <div class="edit-form-card bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-indigo-100 dark:border-gray-700 p-8">
+                <div class="edit-form-card rounded-2xl shadow-lg border p-8" style="background: #faf5f0; border-color: #d4c4a8;">
                     @if ($errors->any())
                         <div class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
                             <h3 class="font-semibold mb-2"><i class="fa fa-exclamation-triangle mr-1"></i> Vui lòng kiểm tra lại thông tin:</h3>
@@ -29,7 +29,7 @@
                         @method('PUT')
 
                         <div class="mb-4">
-                            <label for="name" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                            <label for="name" class="block text-sm font-semibold text-black mb-1">
                                 Tên sản phẩm <span class="text-red-500">*</span>
                             </label>
                             <input type="text" id="name" name="name"
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="description" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                            <label for="description" class="block text-sm font-semibold text-black mb-1">
                                 Mô tả
                             </label>
                             <textarea id="description" name="description" rows="4"
@@ -49,7 +49,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="price" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                                <label for="price" class="block text-sm font-semibold text-black mb-1">
                                     Giá (VNĐ) <span class="text-red-500">*</span>
                                 </label>
                                 <input type="number" id="price" name="price"
@@ -60,7 +60,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="stock" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                                <label for="stock" class="block text-sm font-semibold text-black mb-1">
                                     Tồn kho <span class="text-red-500">*</span>
                                 </label>
                                 <input type="number" id="stock" name="stock"
@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="mt-6">
-                            <label class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-2">
+                            <label class="block text-sm font-semibold text-black mb-2">
                                 Danh mục sản phẩm <span class="text-red-500">*</span>
                             </label>
 
@@ -96,7 +96,7 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <small class="text-gray-500 dark:text-gray-400 text-sm mt-1 block">Chọn một danh mục cho sản phẩm</small>
+                                <small class="text-black text-sm mt-1 block">Chọn một danh mục cho sản phẩm</small>
                             @else
                                 <div class="alert alert-warning bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg">
                                     <i class="fa fa-exclamation-triangle mr-1"></i>
@@ -113,13 +113,13 @@
                         </div>
 
                         <div class="mt-6">
-                            <label for="image" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                            <label for="image" class="block text-sm font-semibold text-black mb-1">
                                 Ảnh (tùy chọn)
                             </label>
                             <input type="file" id="image" name="image" class="form-control-file" accept="image/*">
                             @if($product->image)
                                 <div class="mt-3">
-                                    <small class="text-gray-500 dark:text-gray-400">Ảnh hiện tại:</small>
+                                    <small class="text-black">Ảnh hiện tại:</small>
                                     @if(Storage::exists('public/' . $product->image))
                                         <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="mt-2 rounded-lg shadow-md max-h-40">
                                     @elseif(file_exists(public_path('images/products/' . $product->image)))
@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="mt-8 flex justify-center gap-4">
-                            <a href="{{ route('products.index') }}" class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 shadow-sm">
+                            <a href="{{ route('products.index') }}" class="px-5 py-2.5 rounded-lg border text-black shadow-sm" style="border-color: #d4c4a8; background: #faf5f0; hover:background: #e8dcc6;">
                                 <i class="fa fa-times mr-1"></i> Hủy
                             </a>
                             <button type="submit" class="px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-md">

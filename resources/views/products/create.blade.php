@@ -84,7 +84,7 @@
                                             <label class="form-check-label-radio" for="category_{{ $category->id }}" style="cursor: pointer; font-weight: 500; color: #1e293b; padding-left: 0.5rem;">
                                                 <span style="font-size: 1.1rem; color: #667eea;">{{ $category->name }}</span>
                                                 @if($category->description)
-                                                    <small class="d-block text-muted" style="font-weight: normal; font-size: 0.875rem; margin-top: 0.25rem; color: #64748b;">{{ $category->description }}</small>
+                                                    <small class="d-block text-muted" style="font-weight: normal; font-size: 0.875rem; margin-top: 0.25rem; color: #1a1a1a;">{{ $category->description }}</small>
                                                 @endif
                                             </label>
                                         </div>
@@ -181,6 +181,8 @@
 
 .create-product-form {
     padding: 40px 0 70px;
+    background: linear-gradient(to bottom, #f5ebe0 0%, #e8dcc6 100%);
+    min-height: 70vh;
 }
 
 .form-wrapper {

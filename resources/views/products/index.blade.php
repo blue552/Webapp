@@ -4,12 +4,12 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class = "font-semibold text-gray-900 dark:text-gray-100">Sản phẩm</h2>
+        <h2 class = "font-semibold text-black">Sản phẩm</h2>
     </x-slot>
 
 
 <!-- Products Content -->
-<section class="products-content bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:bg-gray-900 py-12">
+<section class="products-content py-12" style="background: linear-gradient(to bottom right, #f5ebe0, #e8dcc6, #d4c4a8);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Success Message -->
         @if(session('success'))
@@ -33,9 +33,9 @@
         <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             @forelse($products as $product)
                 <div class="product-card-wrapper">
-                    <div class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-transparent hover:border-purple-300 transform hover:-translate-y-2">
+                    <div class="product-card rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-transparent hover:border-amber-600 transform hover:-translate-y-2" style="background: #faf5f0;">
                         <!-- Product Image -->
-                        <div class="relative aspect-square w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                        <div class="relative aspect-square w-full overflow-hidden" style="background: #e8dcc6;">
                             @if($product->image)
                                 @if(filter_var($product->image, FILTER_VALIDATE_URL))
                                     <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
@@ -74,14 +74,14 @@
 
                         <!-- Product Info -->
                         <div class="p-5">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2">{{ $product->name }}</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2 min-h-[2.5rem]">{{ Str::limit($product->description, 80) }}</p>
+                            <h3 class="text-lg font-bold text-black mb-2 line-clamp-2">{{ $product->name }}</h3>
+                            <p class="text-sm text-black mb-3 line-clamp-2 min-h-[2.5rem]">{{ Str::limit($product->description, 80) }}</p>
                             
                             <!-- Categories -->
                             @if($product->categories->count() > 0)
                                 <div class="mb-3">
                                     @foreach($product->categories->take(2) as $category)
-                                        <span class="inline-block bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-semibold px-2 py-1 rounded-full mr-1">
+                                        <span class="inline-block text-xs font-semibold px-2 py-1 rounded-full mr-1" style="background: #d4c4a8; color: #5c4033;">
                                             {{ $category->name }}
                                         </span>
                                     @endforeach
@@ -93,7 +93,7 @@
                                 <span class="text-xl font-bold text-red-600 dark:text-red-400">
                                     {{ number_format($product->price, 0, ',', '.') }} VNĐ
                                 </span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                                <span class="text-sm px-2 py-1 rounded" style="color: #5c4033; background: #e8dcc6;">
                                     Kho: {{ $product->stock }}
                                 </span>
                             </div>
@@ -119,10 +119,10 @@
                 </div>
             @empty
                 <div class="col-span-full">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-12 text-center border-2 border-dashed border-gray-300 dark:border-gray-600">
-                        <i class="fa fa-box-open text-6xl text-gray-400 mb-4"></i>
-                        <h3 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">Chưa có sản phẩm nào</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-6">Hãy thêm sản phẩm đầu tiên để bắt đầu</p>
+                    <div class="rounded-xl shadow-lg p-12 text-center border-2 border-dashed" style="background: #faf5f0; border-color: #d4c4a8;">
+                        <i class="fa fa-box-open text-6xl text-black mb-4"></i>
+                        <h3 class="text-2xl font-bold text-black mb-2">Chưa có sản phẩm nào</h3>
+                        <p class="text-black mb-6">Hãy thêm sản phẩm đầu tiên để bắt đầu</p>
                         <a href="{{ route('products.create') }}" class="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                             <i class="fa fa-plus mr-2"></i> Thêm sản phẩm mới
                         </a>
